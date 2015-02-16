@@ -4,16 +4,13 @@ using UnityMidiControl;
 
 public class TestInput : MonoBehaviour {
 	void Start() {
-		InputManager.AddKeyMapping("x", "b");
-		Debug.Log("Added mapping for 'x' to be triggered by 'b' key");
+		InputManager.AddKeyMapping("x", 60);
+		Debug.Log("Added mapping for 'x' to be triggered by note number 60 (middle C)");
 	}
 
 	void Update () {
 		if (InputManager.GetKeyDown("x")) {
 			Debug.Log("'x' key pressed");
-		}
-		if (InputManager.GetKeyDown("b")) {
-			Debug.Log("'b' key pressed");
 		}
 	}
 }

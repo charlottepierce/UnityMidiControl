@@ -6,7 +6,7 @@ namespace UnityMidiControl {
 	public sealed class InputManager : MonoBehaviour {
 		private static InputManager _instance;
 
-		private Dictionary<string, string> _keyMappings; // key = key activated, value = trigger; e.g., key = 'x', value = note number 44
+		private Dictionary<string, int> _keyMappings; // key = key activated, value = trigger; e.g., key = 'x', value = note number 44
 
 		void Awake() {
 			if (_instance != null) {
@@ -16,17 +16,17 @@ namespace UnityMidiControl {
 			}
 
 			_instance = this;
-			_keyMappings = new Dictionary<string, string>();
+			_keyMappings = new Dictionary<string, int>();
 		}
 
-		public static void AddKeyMapping(string key, string trigger) {
+		public static void AddKeyMapping(string key, int trigger) {
 			_instance._keyMappings.Add(key, trigger);
 		}
 
 		public static bool GetKeyDown(string name) {
 			if (_instance._keyMappings.ContainsKey(name)) {
-				string trigger = _instance._keyMappings[name];
-				return UnityEngine.Input.GetKeyDown(trigger) || UnityEngine.Input.GetKeyDown(name);
+				int trigger = _instance._keyMappings[name];
+				return MidiInput.GetKeyDown(trigger) || UnityEngine.Input.GetKeyDown(name);
 			} else {
 				return UnityEngine.Input.GetKeyDown(name);
 			}
