@@ -16,5 +16,9 @@ public class TestInput : MonoBehaviour {
 		if (InputManager.GetKeyUp("x")) {
 			Debug.Log("'x' key released");
 		}
+
+		if (InputManager.GetKey("x")) {
+			Debug.Log("'x' key held");
+		}
 	}
 }

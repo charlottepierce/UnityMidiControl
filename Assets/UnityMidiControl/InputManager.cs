@@ -23,6 +23,15 @@ namespace UnityMidiControl {
 			_instance._keyMappings.Add(key, trigger);
 		}
 
+		public static bool GetKey(string name) {
+			if (_instance._keyMappings.ContainsKey(name)) {
+				int trigger = _instance._keyMappings[name];
+				return (MidiInput.GetKey(trigger) > 0.0f) || UnityEngine.Input.GetKey(name);
+			} else {
+				return UnityEngine.Input.GetKey(name);
+			}
+		}
+
 		public static bool GetKeyDown(string name) {
 			if (_instance._keyMappings.ContainsKey(name)) {
 				int trigger = _instance._keyMappings[name];
