@@ -31,5 +31,14 @@ namespace UnityMidiControl {
 				return UnityEngine.Input.GetKeyDown(name);
 			}
 		}
+
+		public static bool GetKeyUp(string name) {
+			if (_instance._keyMappings.ContainsKey(name)) {
+				int trigger = _instance._keyMappings[name];
+				return MidiInput.GetKeyUp(trigger) || UnityEngine.Input.GetKeyUp(name);
+			} else {
+				return UnityEngine.Input.GetKeyUp(name);
+			}
+		}
 	}
 }

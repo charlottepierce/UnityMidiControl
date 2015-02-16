@@ -12,5 +12,9 @@ public class TestInput : MonoBehaviour {
 		if (InputManager.GetKeyDown("x")) {
 			Debug.Log("'x' key pressed");
 		}
+
+		if (InputManager.GetKeyUp("x")) {
+			Debug.Log("'x' key released");
+		}
 	}
 }
