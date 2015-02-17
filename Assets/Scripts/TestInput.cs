@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityMidiControl;
+using UnityMidiControl.Input;
 
 public class TestInput : MonoBehaviour {
 	void Start() {

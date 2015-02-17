@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace UnityMidiControl {
+namespace UnityMidiControl.Input {
 	public sealed class InputManager : MonoBehaviour {
-		private Dictionary<string, int> _keyMappings; // key = key activated, value = trigger; e.g., key = 'x', value = note number 44
+		private KeyMappings _keyMappings = new KeyMappings();
 
 		private static InputManager _instance;
 		private static InputManager instance {
@@ -26,36 +26,56 @@ namespace UnityMidiControl {
 			}
 		}
 
-		public void Awake() {
-			_keyMappings = new Dictionary<string, int>();
-		}
-
 		public static void AddKeyMapping(string key, int trigger) {
-			instance._keyMappings.Add(key, trigger);
+			instance._keyMappings.MapKey(trigger, key);
 		}
 
 		public static bool GetKey(string name) {
-			if (instance._keyMappings.ContainsKey(name)) {
-				int trigger = instance._keyMappings[name];
-				return (MidiInput.GetKey(trigger) > 0.0f) || UnityEngine.Input.GetKey(name);
+			if (instance._keyMappings.MapsKey(name)) {
+				List<int> triggers = instance._keyMappings.GetTriggers(name);
+				bool triggered = false;
+				foreach (int t in triggers) {
+					if (MidiInput.GetKey(t) > 0.0f) {
+						triggered = true;
+						break;
+					}
+				}
+
+				return triggered || UnityEngine.Input.GetKey(name);
 			} else {
 				return UnityEngine.Input.GetKey(name);
 			}
 		}
 
 		public static bool GetKeyDown(string name) {
-			if (instance._keyMappings.ContainsKey(name)) {
-				int trigger = instance._keyMappings[name];
-				return MidiInput.GetKeyDown(trigger) || UnityEngine.Input.GetKeyDown(name);
+			if (instance._keyMappings.MapsKey(name)) {
+				List<int> triggers = instance._keyMappings.GetTriggers(name);
+				bool triggered = false;
+				foreach (int t in triggers) {
+					if (MidiInput.GetKeyDown(t)) {
+						triggered = true;
+						break;
+					}
+				}
+
+				return triggered || UnityEngine.Input.GetKeyDown(name);
 			} else {
 				return UnityEngine.Input.GetKeyDown(name);
 			}
 		}
 
 		public static bool GetKeyUp(string name) {
-			if (instance._keyMappings.ContainsKey(name)) {
-				int trigger = instance._keyMappings[name];
-				return MidiInput.GetKeyUp(trigger) || UnityEngine.Input.GetKeyUp(name);
+			if (instance._keyMappings.MapsKey(name)) {
+				List<int> triggers = instance._keyMappings.GetTriggers(name);
+				bool triggered = false;
+				foreach (int t in triggers) {
+					if (MidiInput.GetKeyUp(t)) {
+						triggered = true;
+						break;
+					}
+				}
+				
+				return triggered || UnityEngine.Input.GetKeyDown(name);
 			} else {
 				return UnityEngine.Input.GetKeyUp(name);
 			}
