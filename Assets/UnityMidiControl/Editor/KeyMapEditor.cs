@@ -15,19 +15,14 @@ namespace UnityMidiControl.Editor {
 		public void OnGUI() {
 			foreach (Mapping m in _keyMappings.Mappings) {
 				GUILayout.BeginHorizontal();
-				EditorGUILayout.IntField("Note Number: ", m.trigger);
-				EditorGUILayout.TextField("Triggers Key:", m.key);
+				m.trigger = EditorGUILayout.IntField("Note Number: ", m.trigger);
+				m.key = EditorGUILayout.TextField("Triggers Key:", m.key);
 				GUILayout.EndHorizontal();
-				// TODO: make the changes of values persist
 			}
 
 			if (GUILayout.Button("Add Key Mapping")) {
-				NewKeyMap();
+				_keyMappings.MapKey(-1, "");
 			}
-		}
-
-		private void NewKeyMap() {
-			_keyMappings.MapKey(-1, "");
 		}
 	}
 }
