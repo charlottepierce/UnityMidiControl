@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
+using UnityMidiControl.Input;
 
 namespace UnityMidiControl.Editor {
 	public class KeyMapEditor : EditorWindow {
-		private Dictionary<int, string> _keyMappings = new Dictionary<int, string>(); // key = trigger; value = key activated; e.g., key = note number 44, value = 'x'
+		private KeyMappings _keyMappings = new KeyMappings();
 
 		[MenuItem("MIDI Input/Edit Key Mappings")]
 		public static void ShowWindow() {
@@ -13,12 +13,10 @@ namespace UnityMidiControl.Editor {
 		}
 
 		public void OnGUI() {
-			foreach (int trigger in _keyMappings.Keys) {
-				string key = _keyMappings[trigger];
-
+			foreach (Mapping m in _keyMappings.Mappings) {
 				GUILayout.BeginHorizontal();
-				EditorGUILayout.IntField("Note Number: ", trigger);
-				EditorGUILayout.TextField("Triggers Key:", "");
+				EditorGUILayout.IntField("Note Number: ", m.trigger);
+				EditorGUILayout.TextField("Triggers Key:", m.key);
 				GUILayout.EndHorizontal();
 				// TODO: make the changes of values persist
 			}
@@ -29,7 +27,7 @@ namespace UnityMidiControl.Editor {
 		}
 
 		private void NewKeyMap() {
-			_keyMappings.Add(-1, "");
+			_keyMappings.MapKey(-1, "");
 		}
 	}
 }

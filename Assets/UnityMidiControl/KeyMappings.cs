@@ -4,6 +4,11 @@ using System.Collections.Generic;
 namespace UnityMidiControl.Input {
 	public class KeyMappings {
 		private List<Mapping> _mappings = new List<Mapping>();
+		public List<Mapping> Mappings {
+			get {
+				return _mappings;
+			}
+		}
 
 		public void MapKey(int trigger, string key) {
 			_mappings.Add(new Mapping(trigger, key));
@@ -27,7 +32,7 @@ namespace UnityMidiControl.Input {
 		}
 	}
 
-	class Mapping {
+	public class Mapping {
 		public int trigger; // note number (e.g., 60)
 		public string key; // key activated (e.g., "x")
 		
