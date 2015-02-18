@@ -35,7 +35,7 @@ namespace UnityMidiControl.Input {
 			return triggers;
 		}
 	}
-
+	
 	public class Mapping {
 		public int trigger; // note number (e.g., 60)
 		public string key; // key activated (e.g., "x")

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityMidiControl.Input;
+using System.Collections.Generic;
 
 namespace UnityMidiControl.Editor {
 	public class KeyMapEditor : EditorWindow {
-		private KeyMappings _keyMappings = new KeyMappings();
+		private InputManager _inputManager;
 
 		[MenuItem("MIDI Input/Edit Key Mappings")]
 		public static void ShowWindow() {
@@ -12,29 +13,29 @@ namespace UnityMidiControl.Editor {
 			win.title = "MIDI Controls";
 		}
 
+		public void OnEnable() {
+			_inputManager = InputManager.Instance;
+		}
+
 		public void OnGUI() {
-			foreach (Mapping m in _keyMappings.Mappings) {
+			List<Mapping> remove = new List<Mapping>();
+			foreach (Mapping m in _inputManager.KeyMappings.Mappings) {
 				GUILayout.BeginHorizontal();
 				m.trigger = EditorGUILayout.IntField("Note Number: ", m.trigger); // TODO: validate that this is a valid note number
 				m.key = EditorGUILayout.TextField("Triggers Key:", m.key); // TODO: validate that this is a real key
+				if (GUILayout.Button("Remove")) {
+					remove.Add(m);
+				}
 				GUILayout.EndHorizontal();
 			}
 
+			foreach (Mapping m in remove) {
+				_inputManager.KeyMappings.Mappings.Remove(m);
+			}
+
 			if (GUILayout.Button("Add Key Mapping")) {
-				_keyMappings.MapKey(-1, "");
+				InputManager.AddKeyMapping("", -1);
 			}
-
-			if (GUILayout.Button("Apply")) {
-				ApplyKeyMappings();
-			}
-		}
-
-		private void ApplyKeyMappings() {
-			InputManager.ClearKeyMappings();
-			foreach (Mapping m in _keyMappings.Mappings) {
-				InputManager.AddKeyMapping(m.key, m.trigger);
-			}
-			Debug.Log("MIDI key mappings updated");
 		}
 	}
 }

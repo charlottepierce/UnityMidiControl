@@ -5,9 +5,14 @@ using System.Collections.Generic;
 namespace UnityMidiControl.Input {
 	public sealed class InputManager : MonoBehaviour {
 		private KeyMappings _keyMappings = new KeyMappings();
+		public KeyMappings KeyMappings {
+			get {
+				return _keyMappings;
+			}
+		}
 
 		private static InputManager _instance;
-		private static InputManager instance {
+		public static InputManager Instance {
 			get {
 				if (_instance == null) {
 					InputManager existing = (InputManager)FindObjectOfType(typeof(InputManager));
@@ -26,16 +31,16 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static void AddKeyMapping(string key, int trigger) {
-			instance._keyMappings.MapKey(trigger, key);
+			Instance._keyMappings.MapKey(trigger, key);
 		}
 
 		public static void ClearKeyMappings() {
-			instance._keyMappings.ClearMappings();
+			Instance._keyMappings.ClearMappings();
 		}
 
 		public static bool GetKey(string name) {
-			if (instance._keyMappings.MapsKey(name)) {
-				List<int> triggers = instance._keyMappings.GetTriggers(name);
+			if (Instance._keyMappings.MapsKey(name)) {
+				List<int> triggers = Instance._keyMappings.GetTriggers(name);
 				bool triggered = false;
 				foreach (int t in triggers) {
 					if (MidiInput.GetKey(t) > 0.0f) {
@@ -51,8 +56,8 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKeyDown(string name) {
-			if (instance._keyMappings.MapsKey(name)) {
-				List<int> triggers = instance._keyMappings.GetTriggers(name);
+			if (Instance._keyMappings.MapsKey(name)) {
+				List<int> triggers = Instance._keyMappings.GetTriggers(name);
 				bool triggered = false;
 				foreach (int t in triggers) {
 					if (MidiInput.GetKeyDown(t)) {
@@ -68,8 +73,8 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKeyUp(string name) {
-			if (instance._keyMappings.MapsKey(name)) {
-				List<int> triggers = instance._keyMappings.GetTriggers(name);
+			if (Instance._keyMappings.MapsKey(name)) {
+				List<int> triggers = Instance._keyMappings.GetTriggers(name);
 				bool triggered = false;
 				foreach (int t in triggers) {
 					if (MidiInput.GetKeyUp(t)) {
