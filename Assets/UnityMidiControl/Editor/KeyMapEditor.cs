@@ -24,20 +24,13 @@ namespace UnityMidiControl.Editor {
 
 			_inputManager = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
 			Debug.Log("Enable: " + _inputManager.KeyMappings.Mappings.Count);
-//			Debug.Log("Enable: " + _inputManager.testVal);
 		}
 
 		public void OnDisable() {
 			Debug.Log("Disable: " + _inputManager.KeyMappings.Mappings.Count);
-//			Debug.Log("Disable: " + _inputManager.testVal);
 		}
 
 		public void OnGUI() {
-//			int prev = _inputManager.testVal;
-//			_inputManager.testVal = EditorGUILayout.IntField("Test Val: ", _inputManager.testVal);
-//			if (_inputManager.testVal != prev) {
-//				EditorUtility.SetDirty(_inputManager);
-//			}
 			for (int i = _inputManager.KeyMappings.Mappings.Count - 1; i >= 0; --i) {
 				Mapping m = _inputManager.KeyMappings.Mappings[i];
 
@@ -47,7 +40,6 @@ namespace UnityMidiControl.Editor {
 				if (GUILayout.Button("Remove")) {
 					_inputManager.RemoveMapping(m.trigger, m.key);
 					EditorUtility.SetDirty(_inputManager);
-//					Debug.Log("Key Maps: " + _inputManager.KeyMappings.Mappings.Count);
 				}
 				GUILayout.EndHorizontal();
 			}
@@ -55,7 +47,6 @@ namespace UnityMidiControl.Editor {
 			if (GUILayout.Button("Add Key Mapping")) {
 				_inputManager.MapKey(-1, "");
 				EditorUtility.SetDirty(_inputManager);
-//				Debug.Log("Key Maps: " + _inputManager.KeyMappings.Mappings.Count);
 			}
 		}
 	}
