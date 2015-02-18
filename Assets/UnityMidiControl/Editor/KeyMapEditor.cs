@@ -32,7 +32,7 @@ namespace UnityMidiControl.Editor {
 			}
 
 			if (GUILayout.Button("Add Key Mapping")) {
-				InputManager.AddKeyMapping("", -1);
+				_inputManager.KeyMappings.MapKey(-1, "");
 				Debug.Log("Key Maps: " + _inputManager.KeyMappings.Mappings.Count);
 			}
 		}
