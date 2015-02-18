@@ -18,19 +18,16 @@ namespace UnityMidiControl.Editor {
 		}
 
 		public void OnGUI() {
-			List<Mapping> remove = new List<Mapping>();
-			foreach (Mapping m in _inputManager.KeyMappings.Mappings) {
+			for (int i = _inputManager.KeyMappings.Mappings.Count - 1; i >= 0; --i) {
+				Mapping m = _inputManager.KeyMappings.Mappings[i];
+
 				GUILayout.BeginHorizontal();
 				m.trigger = EditorGUILayout.IntField("Note Number: ", m.trigger); // TODO: validate that this is a valid note number
 				m.key = EditorGUILayout.TextField("Triggers Key:", m.key); // TODO: validate that this is a real key
 				if (GUILayout.Button("Remove")) {
-					remove.Add(m);
+					_inputManager.KeyMappings.Mappings.RemoveAt(i);
 				}
 				GUILayout.EndHorizontal();
-			}
-
-			foreach (Mapping m in remove) {
-				_inputManager.KeyMappings.Mappings.Remove(m);
 			}
 
 			if (GUILayout.Button("Add Key Mapping")) {
