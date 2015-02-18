@@ -31,14 +31,6 @@ namespace UnityMidiControl.Input {
 			}
 		}
 
-		public static void AddKeyMapping(string key, int trigger) {
-			Instance._keyMappings.MapKey(trigger, key);
-		}
-
-		public static void ClearKeyMappings() {
-			Instance._keyMappings.ClearMappings();
-		}
-
 		public static bool GetKey(string name) {
 			if (Instance._keyMappings.MapsKey(name)) {
 				List<int> triggers = Instance._keyMappings.GetTriggers(name);
