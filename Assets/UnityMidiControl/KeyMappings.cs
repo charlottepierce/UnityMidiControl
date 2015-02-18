@@ -5,23 +5,18 @@ using System.Collections.Generic;
 namespace UnityMidiControl.Input {
 	[Serializable]
 	public class KeyMappings {
-		[SerializeField] private List<Mapping> _mappings = new List<Mapping>();
-		public List<Mapping> Mappings {
-			get {
-				return _mappings;
-			}
-		}
+		public List<Mapping> Mappings = new List<Mapping>();
 
 		public void ClearMappings() {
-			_mappings = new List<Mapping>();
+			Mappings = new List<Mapping>();
 		}
 
 		public void MapKey(int trigger, string key) {
-			_mappings.Add(new Mapping(trigger, key));
+			Mappings.Add(new Mapping(trigger, key));
 		}
 
 		public bool MapsKey(string key) {
-			foreach (Mapping m in _mappings) {
+			foreach (Mapping m in Mappings) {
 				if (m.key == key) return true;
 			}
 
@@ -30,7 +25,7 @@ namespace UnityMidiControl.Input {
 
 		public List<int> GetTriggers(string key) {
 			List<int> triggers = new List<int>();
-			foreach (Mapping m in _mappings) {
+			foreach (Mapping m in Mappings) {
 				if (m.key == key) triggers.Add(m.trigger);
 			}
 

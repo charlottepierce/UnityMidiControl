@@ -5,12 +5,7 @@ using System.Collections.Generic;
 namespace UnityMidiControl.Input {
 	[Serializable]
 	public sealed class InputManager : MonoBehaviour {
-		[SerializeField] private KeyMappings _keyMappings = new KeyMappings();
-		public KeyMappings KeyMappings {
-			get {
-				return _keyMappings;
-			}
-		}
+		public KeyMappings KeyMappings = new KeyMappings();
 
 		private static InputManager _instance;
 		public static InputManager Instance {
@@ -32,8 +27,8 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKey(string name) {
-			if (Instance._keyMappings.MapsKey(name)) {
-				List<int> triggers = Instance._keyMappings.GetTriggers(name);
+			if (Instance.KeyMappings.MapsKey(name)) {
+				List<int> triggers = Instance.KeyMappings.GetTriggers(name);
 				bool triggered = false;
 				foreach (int t in triggers) {
 					if (MidiInput.GetKey(t) > 0.0f) {
@@ -49,8 +44,8 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKeyDown(string name) {
-			if (Instance._keyMappings.MapsKey(name)) {
-				List<int> triggers = Instance._keyMappings.GetTriggers(name);
+			if (Instance.KeyMappings.MapsKey(name)) {
+				List<int> triggers = Instance.KeyMappings.GetTriggers(name);
 				bool triggered = false;
 				foreach (int t in triggers) {
 					if (MidiInput.GetKeyDown(t)) {
@@ -66,8 +61,8 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKeyUp(string name) {
-			if (Instance._keyMappings.MapsKey(name)) {
-				List<int> triggers = Instance._keyMappings.GetTriggers(name);
+			if (Instance.KeyMappings.MapsKey(name)) {
+				List<int> triggers = Instance.KeyMappings.GetTriggers(name);
 				bool triggered = false;
 				foreach (int t in triggers) {
 					if (MidiInput.GetKeyUp(t)) {
