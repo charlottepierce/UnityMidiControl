@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 namespace UnityMidiControl.Input {
+	[Serializable]
 	public class KeyMappings {
-		private List<Mapping> _mappings = new List<Mapping>();
+		[SerializeField] private List<Mapping> _mappings = new List<Mapping>();
 		public List<Mapping> Mappings {
 			get {
 				return _mappings;
@@ -35,7 +37,8 @@ namespace UnityMidiControl.Input {
 			return triggers;
 		}
 	}
-	
+
+	[Serializable]
 	public class Mapping {
 		public int trigger; // note number (e.g., 60)
 		public string key; // key activated (e.g., "x")

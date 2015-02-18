@@ -3,8 +3,9 @@ using System;
 using System.Collections.Generic;
 
 namespace UnityMidiControl.Input {
+	[Serializable]
 	public sealed class InputManager : MonoBehaviour {
-		private KeyMappings _keyMappings = new KeyMappings();
+		[SerializeField] private KeyMappings _keyMappings = new KeyMappings();
 		public KeyMappings KeyMappings {
 			get {
 				return _keyMappings;
