@@ -31,20 +31,22 @@ namespace UnityMidiControl.Editor {
 		}
 
 		public void OnGUI() {
+			EditorGUIUtility.labelWidth = 90;
+
 			for (int i = _inputManager.KeyMappings.Mappings.Count - 1; i >= 0; --i) {
 				Mapping m = _inputManager.KeyMappings.Mappings[i];
 
 				GUILayout.BeginHorizontal();
-				m.trigger = EditorGUILayout.IntField("Note Number: ", m.trigger); // TODO: validate that this is a valid note number
-				m.key = EditorGUILayout.TextField("Triggers Key:", m.key); // TODO: validate that this is a real key
-				if (GUILayout.Button("Remove")) {
+				m.trigger = EditorGUILayout.IntField("Note Number:", m.trigger, GUILayout.MaxWidth(130)); // TODO: validate that this is a valid note number
+				m.key = EditorGUILayout.TextField("Triggers Key:", m.key, GUILayout.MaxWidth(160)); // TODO: validate that this is a real key
+				if (GUILayout.Button("Remove", GUILayout.MaxWidth(70))) {
 					_inputManager.RemoveMapping(m.trigger, m.key);
 					EditorUtility.SetDirty(_inputManager);
 				}
 				GUILayout.EndHorizontal();
 			}
 
-			if (GUILayout.Button("Add Key Mapping")) {
+			if (GUILayout.Button("New Key Mapping", GUILayout.MaxWidth(369))) {
 				_inputManager.MapKey(-1, "");
 				EditorUtility.SetDirty(_inputManager);
 			}
