@@ -4,8 +4,8 @@ using UnityMidiControl.Input;
 
 public class TestInput : MonoBehaviour {
 	void Start() {
-		InputManager.AddKeyMapping("x", 60);
-		Debug.Log("Added mapping for 'x' to be triggered by note number 60 (middle C)");
+//		InputManager.AddKeyMapping("x", 60);
+//		Debug.Log("Added mapping for 'x' to be triggered by note number 60 (middle C)");
 	}
 
 	void Update () {

@@ -12,7 +12,6 @@ namespace UnityMidiControl.Input {
 				if (_instance == null) {
 					InputManager existing = (InputManager)FindObjectOfType(typeof(InputManager));
 					if (existing) {
-						Debug.LogWarning("MIDI input manager is automatically initialised. Don't assign the InputManager behaviour to an object.");
 						_instance = existing;
 					} else {
 						GameObject inputManager = new GameObject("_MidiInputManager"); // underscore to remember the object is hidden
@@ -28,6 +27,10 @@ namespace UnityMidiControl.Input {
 
 		public static void AddKeyMapping(string key, int trigger) {
 			instance._keyMappings.MapKey(trigger, key);
+		}
+
+		public static void ClearKeyMappings() {
+			instance._keyMappings.ClearMappings();
 		}
 
 		public static bool GetKey(string name) {

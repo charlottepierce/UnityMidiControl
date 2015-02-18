@@ -15,14 +15,26 @@ namespace UnityMidiControl.Editor {
 		public void OnGUI() {
 			foreach (Mapping m in _keyMappings.Mappings) {
 				GUILayout.BeginHorizontal();
-				m.trigger = EditorGUILayout.IntField("Note Number: ", m.trigger);
-				m.key = EditorGUILayout.TextField("Triggers Key:", m.key);
+				m.trigger = EditorGUILayout.IntField("Note Number: ", m.trigger); // TODO: validate that this is a valid note number
+				m.key = EditorGUILayout.TextField("Triggers Key:", m.key); // TODO: validate that this is a real key
 				GUILayout.EndHorizontal();
 			}
 
 			if (GUILayout.Button("Add Key Mapping")) {
 				_keyMappings.MapKey(-1, "");
 			}
+
+			if (GUILayout.Button("Apply")) {
+				ApplyKeyMappings();
+			}
+		}
+
+		private void ApplyKeyMappings() {
+			InputManager.ClearKeyMappings();
+			foreach (Mapping m in _keyMappings.Mappings) {
+				InputManager.AddKeyMapping(m.key, m.trigger);
+			}
+			Debug.Log("MIDI key mappings updated");
 		}
 	}
 }

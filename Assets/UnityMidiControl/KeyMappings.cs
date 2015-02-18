@@ -10,6 +10,10 @@ namespace UnityMidiControl.Input {
 			}
 		}
 
+		public void ClearMappings() {
+			_mappings = new List<Mapping>();
+		}
+
 		public void MapKey(int trigger, string key) {
 			_mappings.Add(new Mapping(trigger, key));
 		}
