@@ -14,7 +14,20 @@ namespace UnityMidiControl.Editor {
 		}
 
 		public void OnEnable() {
-			_inputManager = InputManager.Instance;
+			if (UnityEngine.Object.FindObjectOfType(typeof(InputManager)) == null) {
+				Debug.Log("Creating input manager");
+				GameObject gameObject = new GameObject("InputManager");
+				gameObject.AddComponent<InputManager>();
+				DontDestroyOnLoad(gameObject);
+				gameObject.hideFlags = HideFlags.HideInHierarchy;
+			}
+
+			_inputManager = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
+			Debug.Log("Enable: " + _inputManager.KeyMappings.Mappings.Count);
+		}
+
+		public void OnDisable() {
+			Debug.Log("Disable: " + _inputManager.KeyMappings.Mappings.Count);
 		}
 
 		public void OnGUI() {
@@ -25,15 +38,17 @@ namespace UnityMidiControl.Editor {
 				m.trigger = EditorGUILayout.IntField("Note Number: ", m.trigger); // TODO: validate that this is a valid note number
 				m.key = EditorGUILayout.TextField("Triggers Key:", m.key); // TODO: validate that this is a real key
 				if (GUILayout.Button("Remove")) {
-					_inputManager.KeyMappings.Mappings.RemoveAt(i);
-					Debug.Log("Key Maps: " + _inputManager.KeyMappings.Mappings.Count);
+					_inputManager.RemoveMapping(m.trigger, m.key);
+					EditorUtility.SetDirty(_inputManager);
+//					Debug.Log("Key Maps: " + _inputManager.KeyMappings.Mappings.Count);
 				}
 				GUILayout.EndHorizontal();
 			}
 
 			if (GUILayout.Button("Add Key Mapping")) {
-				_inputManager.KeyMappings.MapKey(-1, "");
-				Debug.Log("Key Maps: " + _inputManager.KeyMappings.Mappings.Count);
+				_inputManager.MapKey(-1, "");
+				EditorUtility.SetDirty(_inputManager);
+//				Debug.Log("Key Maps: " + _inputManager.KeyMappings.Mappings.Count);
 			}
 		}
 	}
