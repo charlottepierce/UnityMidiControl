@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 
 namespace UnityMidiControl.Input {
-//	[Serializable]
+	[Serializable]
 	public sealed class InputManager : MonoBehaviour {
 		public KeyMappings KeyMappings = new KeyMappings();
+		[SerializeField] public int testVal;
 
 		private static InputManager _instance;
 		private void Awake() {
 			if (UnityEngine.Object.FindObjectOfType(typeof(InputManager)) == null) {
+				Debug.Log("Awakened and creating own input manager");
 				GameObject gameObject = new GameObject("InputManager");
 				gameObject.AddComponent<InputManager>();
 				DontDestroyOnLoad(gameObject);
