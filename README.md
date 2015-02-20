@@ -9,7 +9,7 @@
 
 ## Test Script: ##
 
-Prints out messages when 'a', 'b', 'c' or 'd' _KeyDown_ events are triggered.
+Prints out messages when _KeyDown_ and _KeyUp_ events are triggered for the 'a', 'b', 'c' and 'd' keys.
 To check if the MIDI input is working correctly, create a new `GameObject` and add the __Test__ script to it as an asset.
 Then, create mappings for any note numbers to the 'a', 'b', 'c' or 'd' keys.
 Run the project and press the note numbers you have mapped on your input device -- this should cause debug messages to print.

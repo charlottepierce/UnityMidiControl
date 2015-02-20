@@ -29,22 +29,22 @@ namespace UnityMidiControl.Input {
 			KeyMappings.RemoveMapping(trigger, key);
 		}
 		
-//		public static bool GetKey(string name) {
-//			if (_instance.KeyMappings.MapsKey(name)) {
-//				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
-//				bool triggered = false;
-//				foreach (int t in triggers) {
-//					if (MidiInput.GetKey(t) > 0.0f) {
-//						triggered = true;
-//						break;
-//					}
-//				}
-//
-//				return triggered || UnityEngine.Input.GetKey(name);
-//			} else {
-//				return UnityEngine.Input.GetKey(name);
-//			}
-//		}
+		public static bool GetKey(string name) {
+			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
+				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
+				bool triggered = false;
+				foreach (int t in triggers) {
+					if (MidiInput.GetKey(t) > 0.0f) {
+						triggered = true;
+						break;
+					}
+				}
+				
+				return triggered || UnityEngine.Input.GetKey(name);
+			} else {
+				return UnityEngine.Input.GetKey(name);
+			}
+		}
 
 		public static bool GetKeyDown(string name) {
 			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
@@ -63,21 +63,21 @@ namespace UnityMidiControl.Input {
 			}
 		}
 
-//		public static bool GetKeyUp(string name) {
-//			if (_instance.KeyMappings.MapsKey(name)) {
-//				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
-//				bool triggered = false;
-//				foreach (int t in triggers) {
-//					if (MidiInput.GetKeyUp(t)) {
-//						triggered = true;
-//						break;
-//					}
-//				}
-//				
-//				return triggered || UnityEngine.Input.GetKeyDown(name);
-//			} else {
-//				return UnityEngine.Input.GetKeyUp(name);
-//			}
-//		}
+		public static bool GetKeyUp(string name) {
+			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
+				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
+				bool triggered = false;
+				foreach (int t in triggers) {
+					if (MidiInput.GetKeyUp(t)) {
+						triggered = true;
+						break;
+					}
+				}
+				
+				return triggered || UnityEngine.Input.GetKeyUp(name);
+			} else {
+				return UnityEngine.Input.GetKeyUp(name);
+			}
+		}
 	}
 }
