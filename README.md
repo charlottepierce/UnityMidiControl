@@ -5,7 +5,7 @@
 2. Click __MIDI Input > Edit Key Mappings__ to open the editor GUI
 3. Add key mappings as desired
 4. When testing for input, use methods from the class `UnityMidiControl.Input.InputManager` instead of the built-in Unity `Input` class
-5. Before running your project, ensure your MIDI device is connected, and the desktop application _MIDI Bridge_ ([Windows](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-windows.zip); ([OSX](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-osx.zip))) is running
+5. Before running your project, ensure your MIDI device is connected, and the desktop application _MIDI Bridge_ ([Windows](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-windows.zip); [OSX](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-osx.zip)) is running
 
 ## Test Script: ##
 
