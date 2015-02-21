@@ -19,7 +19,7 @@ namespace UnityMidiControl.Editor {
 				GameObject gameObject = new GameObject("InputManager");
 				gameObject.AddComponent<InputManager>();
 				DontDestroyOnLoad(gameObject);
-				gameObject.hideFlags = HideFlags.HideInHierarchy;
+//				gameObject.hideFlags = HideFlags.HideInHierarchy;
 			}
 
 			_inputManager = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
@@ -28,6 +28,10 @@ namespace UnityMidiControl.Editor {
 
 		public void OnDisable() {
 			Debug.Log("Disable: " + _inputManager.KeyMappings.Mappings.Count);
+
+			GameObject inputManager = GameObject.Find("InputManager");
+			PrefabUtility.CreatePrefab("Assets/UnityMidiControl/InputManager.prefab", inputManager);
+			AssetDatabase.Refresh();
 		}
 
 		public void OnGUI() {

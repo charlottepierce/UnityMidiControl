@@ -14,7 +14,7 @@ namespace UnityMidiControl.Input {
 				GameObject gameObject = new GameObject("InputManager");
 				gameObject.AddComponent<InputManager>();
 				DontDestroyOnLoad(gameObject);
-				gameObject.hideFlags = HideFlags.HideInHierarchy;
+//				gameObject.hideFlags = HideFlags.HideInHierarchy;
 			}
 			
 			_instance = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
