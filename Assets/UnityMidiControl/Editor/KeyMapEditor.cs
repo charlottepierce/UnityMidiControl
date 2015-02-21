@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace UnityMidiControl.Editor {
 	public class KeyMapEditor : EditorWindow {
-		[SerializeField] private InputManager _inputManager;
+		private InputManager _inputManager;
 
 		[MenuItem("MIDI Input/Edit Key Mappings")]
 		public static void ShowWindow() {

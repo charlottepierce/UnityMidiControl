@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 
 namespace UnityMidiControl.Input {
-	[Serializable]
 	public sealed class InputManager : MonoBehaviour {
 		public KeyMappings KeyMappings = new KeyMappings();
-		[SerializeField] public int testVal;
+		public int testVal;
 
 		private static InputManager _instance;
 		private void Awake() {
