@@ -5,16 +5,14 @@ using System.Collections.Generic;
 namespace UnityMidiControl.Input {
 	public sealed class InputManager : MonoBehaviour {
 		public KeyMappings KeyMappings = new KeyMappings();
-		public int testVal;
 
 		private static InputManager _instance;
 		private void Awake() {
 			if (UnityEngine.Object.FindObjectOfType(typeof(InputManager)) == null) {
-				Debug.Log("Awakened and creating own input manager");
 				GameObject gameObject = new GameObject("InputManager");
 				gameObject.AddComponent<InputManager>();
 				DontDestroyOnLoad(gameObject);
-//				gameObject.hideFlags = HideFlags.HideInHierarchy;
+				gameObject.hideFlags = HideFlags.HideInHierarchy;
 			}
 			
 			_instance = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;

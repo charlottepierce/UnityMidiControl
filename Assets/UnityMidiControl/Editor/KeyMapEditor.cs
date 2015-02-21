@@ -16,30 +16,23 @@ namespace UnityMidiControl.Editor {
 		public void OnEnable() {
 			_inputManager = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
 			if (_inputManager == null) {
-				Debug.Log("Input manager doesn't exist yet");
 				// try to load prefab
-				Object managerPrefab = Resources.Load("InputManager");
+				Object managerPrefab = Resources.Load("InputManager"); // looks inside all 'Resources' folders in 'Assets'
 				if (managerPrefab != null) {
-					Debug.Log("LOADED PREFAB!");
 					Object prefab = Instantiate(managerPrefab);
 					prefab.name = "InputManager"; // otherwise creates a game object with "(Clone)" appended to the name
 				} else if (UnityEngine.Object.FindObjectOfType(typeof(InputManager)) == null) {
-					// no prefab, create new input manager
-					Debug.Log("Creating input manager");
+					// no prefab found, create new input manager
 					GameObject gameObject = new GameObject("InputManager");
 					gameObject.AddComponent<InputManager>();
 					DontDestroyOnLoad(gameObject);
-//					gameObject.hideFlags = HideFlags.HideInHierarchy;
+					gameObject.hideFlags = HideFlags.HideInHierarchy;
 				}
 				_inputManager = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
 			}
-
-			Debug.Log("Enable: " + _inputManager.KeyMappings.Mappings.Count);
 		}
 
 		public void OnDisable() {
-			Debug.Log("Disable: " + _inputManager.KeyMappings.Mappings.Count);
-
 			GameObject inputManager = GameObject.Find("InputManager");
 			PrefabUtility.CreatePrefab("Assets/UnityMidiControl/Resources/InputManager.prefab", inputManager);
 			AssetDatabase.Refresh();

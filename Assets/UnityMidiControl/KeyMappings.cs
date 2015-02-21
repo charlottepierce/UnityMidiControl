@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 
 namespace UnityMidiControl.Input {
+	[Serializable]
 	public class KeyMappings {
 		public List<Mapping> Mappings = new List<Mapping>();
 
@@ -42,6 +43,7 @@ namespace UnityMidiControl.Input {
 		}
 	}
 
+	[Serializable]
 	public class Mapping {
 		public int trigger; // note number (e.g., 60)
 		public string key; // key activated (e.g., "x")
