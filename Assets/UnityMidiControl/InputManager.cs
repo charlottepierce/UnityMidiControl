@@ -8,14 +8,22 @@ namespace UnityMidiControl.Input {
 
 		private static InputManager _instance;
 		private void Awake() {
-			if (UnityEngine.Object.FindObjectOfType(typeof(InputManager)) == null) {
-				GameObject gameObject = new GameObject("InputManager");
-				gameObject.AddComponent<InputManager>();
-				DontDestroyOnLoad(gameObject);
-				gameObject.hideFlags = HideFlags.HideInHierarchy;
-			}
-			
 			_instance = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
+			if (_instance == null) {
+				// try to load prefab
+				UnityEngine.Object managerPrefab = Resources.Load("InputManager"); // looks inside all 'Resources' folders in 'Assets'
+				if (managerPrefab != null) {
+					UnityEngine.Object prefab = Instantiate(managerPrefab);
+					prefab.name = "InputManager"; // otherwise creates a game object with "(Clone)" appended to the name
+				} else if (UnityEngine.Object.FindObjectOfType(typeof(InputManager)) == null) {
+					// no prefab found, create new input manager
+					GameObject gameObject = new GameObject("InputManager");
+					gameObject.AddComponent<InputManager>();
+					DontDestroyOnLoad(gameObject);
+					gameObject.hideFlags = HideFlags.HideInHierarchy;
+				}
+				_instance = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
+			}
 		}
 
 		public void MapKey(int trigger, string key) {
