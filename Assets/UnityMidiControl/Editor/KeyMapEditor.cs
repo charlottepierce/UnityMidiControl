@@ -26,16 +26,14 @@ namespace UnityMidiControl.Editor {
 					GameObject gameObject = new GameObject("InputManager");
 					gameObject.AddComponent<InputManager>();
 					DontDestroyOnLoad(gameObject);
-					gameObject.hideFlags = HideFlags.HideInHierarchy;
 				}
 				_inputManager = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
+				_inputManager.hideFlags = HideFlags.HideInHierarchy;
 			}
 		}
 
 		public void OnDisable() {
-			GameObject inputManager = GameObject.Find("InputManager");
-			PrefabUtility.CreatePrefab("Assets/UnityMidiControl/Resources/InputManager.prefab", inputManager);
-			AssetDatabase.Refresh();
+			SavePrefab();
 		}
 
 		public void OnGUI() {
@@ -47,9 +45,14 @@ namespace UnityMidiControl.Editor {
 				GUILayout.BeginHorizontal();
 				m.trigger = EditorGUILayout.IntField("Note Number:", m.trigger, GUILayout.MaxWidth(130)); // TODO: validate that this is a valid note number
 				m.key = EditorGUILayout.TextField("Triggers Key:", m.key, GUILayout.MaxWidth(160)); // TODO: validate that this is a real key
+				if (GUI.changed) {
+					SavePrefab();
+				}
+
 				if (GUILayout.Button("Remove", GUILayout.MaxWidth(70))) {
 					_inputManager.RemoveMapping(m.trigger, m.key);
 					EditorUtility.SetDirty(_inputManager);
+					SavePrefab();
 				}
 				GUILayout.EndHorizontal();
 			}
@@ -57,7 +60,14 @@ namespace UnityMidiControl.Editor {
 			if (GUILayout.Button("New Key Mapping", GUILayout.MaxWidth(369))) {
 				_inputManager.MapKey(-1, "");
 				EditorUtility.SetDirty(_inputManager);
+				SavePrefab();
 			}
+		}
+
+		private void SavePrefab() {
+			GameObject inputManager = GameObject.Find("InputManager");
+			PrefabUtility.CreatePrefab("Assets/UnityMidiControl/Resources/InputManager.prefab", inputManager);
+			AssetDatabase.Refresh();
 		}
 	}
 }
