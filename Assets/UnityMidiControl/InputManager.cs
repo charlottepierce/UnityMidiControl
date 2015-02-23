@@ -52,6 +52,10 @@ namespace UnityMidiControl.Input {
 			}
 		}
 
+		public static bool GetKey(KeyCode key) {
+			return GetKey(key.ToString().ToLower());
+		}
+
 		public static bool GetKeyDown(string name) {
 			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
@@ -69,6 +73,10 @@ namespace UnityMidiControl.Input {
 			}
 		}
 
+		public static bool GetKeyDown(KeyCode key) {
+			return GetKeyDown(key.ToString().ToLower());
+		}
+
 		public static bool GetKeyUp(string name) {
 			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
@@ -84,6 +92,10 @@ namespace UnityMidiControl.Input {
 			} else {
 				return UnityEngine.Input.GetKeyUp(name);
 			}
+		}
+
+		public static bool GetKeyUp(KeyCode key) {
+			return GetKeyUp(key.ToString().ToLower());
 		}
 	}
 }
