@@ -36,6 +36,8 @@ namespace UnityMidiControl.Input {
 		}
 		
 		public static bool GetKey(string name) {
+			if (name == "none") return false;
+
 			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
 				bool triggered = false;
@@ -57,6 +59,8 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKeyDown(string name) {
+			if (name == "none") return false;
+
 			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
 				bool triggered = false;
@@ -78,6 +82,8 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKeyUp(string name) {
+			if (name == "none") return false;
+
 			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
 				bool triggered = false;
