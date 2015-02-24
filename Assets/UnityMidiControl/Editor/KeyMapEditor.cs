@@ -37,6 +37,10 @@ namespace UnityMidiControl.Editor {
 		}
 
 		public void OnGUI() {
+			if (_inputManager == null) {
+				OnEnable(); // reload input manager; required when editor window opens with unity (instead of being opened from the menu) and no prefab exists
+			}
+
 			EditorGUIUtility.labelWidth = 90;
 
 			for (int i = _inputManager.KeyMappings.Mappings.Count - 1; i >= 0; --i) {
