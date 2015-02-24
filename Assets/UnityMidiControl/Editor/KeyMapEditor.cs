@@ -29,7 +29,6 @@ namespace UnityMidiControl.Editor {
 					DontDestroyOnLoad(gameObject);
 				}
 				_inputManager = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
-				_inputManager.hideFlags = HideFlags.HideInHierarchy;
 			}
 		}
 
@@ -61,6 +60,9 @@ namespace UnityMidiControl.Editor {
 
 			if (GUILayout.Button("New Key Mapping", GUILayout.MaxWidth(369))) {
 				_inputManager.MapKey(-1, "");
+			}
+			if (GUILayout.Button("Save Mappings", GUILayout.MaxWidth(369))) {
+				SavePrefab();
 			}
 		}
 

@@ -23,7 +23,6 @@ namespace UnityMidiControl.Input {
 					gameObject.hideFlags = HideFlags.HideInHierarchy;
 				}
 				_instance = UnityEngine.Object.FindObjectOfType(typeof(InputManager)) as InputManager;
-				_instance.hideFlags = HideFlags.HideInHierarchy;
 			}
 		}
 
