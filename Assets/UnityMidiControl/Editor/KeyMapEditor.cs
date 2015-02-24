@@ -43,20 +43,24 @@ namespace UnityMidiControl.Editor {
 
 			EditorGUIUtility.labelWidth = 90;
 
-			_scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
-			for (int i = _inputManager.KeyMappings.Mappings.Count - 1; i >= 0; --i) {
-				Mapping m = _inputManager.KeyMappings.Mappings[i];
+			if (_inputManager.KeyMappings.Mappings.Count > 0) {
+				EditorGUILayout.LabelField("Key Mappings: ", EditorStyles.boldLabel);
 
-				GUILayout.BeginHorizontal();
-				m.trigger = EditorGUILayout.IntField("Note Number:", m.trigger, GUILayout.MaxWidth(130)); // TODO: validate that this is a valid note number
-				m.key = EditorGUILayout.TextField("Triggers Key:", m.key, GUILayout.MaxWidth(160)); // TODO: validate that this is a real key
+				_scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
+				for (int i = _inputManager.KeyMappings.Mappings.Count - 1; i >= 0; --i) {
+					Mapping m = _inputManager.KeyMappings.Mappings[i];
 
-				if (GUILayout.Button("Remove", GUILayout.MaxWidth(70))) {
-					_inputManager.RemoveMapping(m.trigger, m.key);
+					GUILayout.BeginHorizontal();
+					m.trigger = EditorGUILayout.IntField(" Note Number:", m.trigger, GUILayout.MaxWidth(130)); // TODO: validate that this is a valid note number
+					m.key = EditorGUILayout.TextField("Triggers Key:", m.key, GUILayout.MaxWidth(160)); // TODO: validate that this is a real key
+
+					if (GUILayout.Button("Remove", GUILayout.MaxWidth(70))) {
+						_inputManager.RemoveMapping(m.trigger, m.key);
+					}
+					GUILayout.EndHorizontal();
 				}
-				GUILayout.EndHorizontal();
+				EditorGUILayout.EndScrollView();
 			}
-			EditorGUILayout.EndScrollView();
 
 			if (GUILayout.Button("New Key Mapping", GUILayout.MaxWidth(369))) {
 				_inputManager.MapKey(-1, "");
