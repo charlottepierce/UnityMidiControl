@@ -65,6 +65,10 @@ namespace UnityMidiControl.Editor {
 		}
 
 		private void SavePrefab() {
+			if (!System.IO.Directory.Exists("Assets/UnityMidiControl/Resources")) {
+				System.IO.Directory.CreateDirectory("Assets/UnityMidiControl/Resources");
+			}
+
 			GameObject inputManager = GameObject.Find("InputManager");
 			PrefabUtility.CreatePrefab("Assets/UnityMidiControl/Resources/InputManager.prefab", inputManager);
 			AssetDatabase.Refresh();
