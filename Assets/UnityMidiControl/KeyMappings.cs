@@ -22,7 +22,7 @@ namespace UnityMidiControl.Input {
 		}
 
 		public void MapKey(int trigger, string key) {
-			Mappings.Add(new Mapping(trigger, key));
+			Mappings.Insert(0, new Mapping(trigger, key));
 		}
 
 		public bool MapsKey(string key) {
