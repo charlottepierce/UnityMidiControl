@@ -27,6 +27,21 @@ namespace UnityMidiControl.Input {
 			}
 		}
 
+		public void Update() {
+			// update the state of each control mapping
+			foreach (ControlMapping m in ControlMappings.Mappings) {
+				float controlVal = MidiInput.GetKnob(m.control) * 127;
+				bool conditionMet = (controlVal > m.minVal) && (controlVal <= m.maxVal);
+				if (!m.keyDown && !m.keyUp) {
+					m.conditionMet = conditionMet; // if conditionMet is false, nothing happened, if it's true, this is a GetKey event
+				}
+			}
+		}
+
+		public bool MapsKey(string key) {
+			return KeyMappings.MapsKey(key) || ControlMappings.MapsKey(key);
+		}
+
 		public void MapKey(int trigger, string key) {
 			KeyMappings.MapKey(trigger, key);
 		}
@@ -44,20 +59,29 @@ namespace UnityMidiControl.Input {
 		}
 		
 		public static bool GetKey(string name) {
-			// TODO: update for control mappings
 			if (name == "none") return false;
 
-			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
+			if ((_instance != null) && _instance.MapsKey(name)) {
+				// check if any key mappings are triggered
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
-				bool triggered = false;
+				bool keyTriggered = false;
 				foreach (int t in triggers) {
 					if (MidiInput.GetKey(t) > 0.0f) {
-						triggered = true;
+						keyTriggered = true;
+						break;
+					}
+				}
+
+				// check if any control mappings are triggered
+				bool controlTriggered = false;
+				foreach (ControlMapping m in _instance.ControlMappings.GetMappings(name)) {
+					if (m.conditionMet && !m.keyDown &!m.keyUp) {
+						controlTriggered = true;
 						break;
 					}
 				}
 				
-				return triggered || UnityEngine.Input.GetKey(name);
+				return keyTriggered || controlTriggered || UnityEngine.Input.GetKey(name);
 			} else {
 				return UnityEngine.Input.GetKey(name);
 			}

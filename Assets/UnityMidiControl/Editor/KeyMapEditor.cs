@@ -71,7 +71,7 @@ namespace UnityMidiControl.Editor {
 					EditorGUIUtility.labelWidth = 40;
 					m.control = EditorGUILayout.IntField(" if CC", m.control, GUILayout.MaxWidth(75));
 					EditorGUIUtility.labelWidth = 15;
-					m.minVal = EditorGUILayout.IntField("<", m.minVal, GUILayout.MaxWidth(50));
+					m.minVal = EditorGUILayout.IntField(">", m.minVal, GUILayout.MaxWidth(50));
 					EditorGUIUtility.labelWidth = 50;
 					m.maxVal = EditorGUILayout.IntField("and <=", m.maxVal, GUILayout.MaxWidth(85));
 					EditorGUIUtility.labelWidth = 50;

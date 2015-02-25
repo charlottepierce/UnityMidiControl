@@ -25,22 +25,22 @@ namespace UnityMidiControl.Input {
 			Mappings.Insert(0, new ControlMapping(control, minVal, maxVal, key));
 		}
 
-//		public bool MapsKey(string key) {
-//			foreach (KeyMapping m in Mappings) {
-//				if (m.key == key) return true;
-//			}
-//
-//			return false;
-//		}
+		public bool MapsKey(string key) {
+			foreach (ControlMapping m in Mappings) {
+				if (m.key == key) return true;
+			}
 
-//		public List<int> GetTriggers(string key) {
-//			List<int> triggers = new List<int>();
-//			foreach (KeyMapping m in Mappings) {
-//				if (m.key == key) triggers.Add(m.trigger);
-//			}
-//
-//			return triggers;
-//		}
+			return false;
+		}
+
+		public List<ControlMapping> GetMappings(string key) {
+			List<ControlMapping> mappings = new List<ControlMapping>();
+			foreach (ControlMapping m in Mappings) {
+				if (m.key == key) mappings.Add(m);
+			}
+
+			return mappings;
+		}
 	}
 
 	[Serializable]
@@ -49,12 +49,21 @@ namespace UnityMidiControl.Input {
 		public int minVal; // exclusive - value must be greater than this to trigger the key
 		public int maxVal; // inclusive - value must be less than or equal to this to trigger the key
 		public string key; // key activated (e.g., "x")
+
+		// used to determine the exact key event that should be triggered, and then update this next frame
+		public bool conditionMet;
+		public bool keyDown;
+		public bool keyUp;
 		
 		public ControlMapping(int control, int minVal, int maxVal, string key) {
 			this.control = control;
 			this.minVal = minVal;
 			this.maxVal = maxVal;
 			this.key = key;
+
+			conditionMet = false;
+			keyDown = false;
+			keyUp = false;
 		}
 	}
 }

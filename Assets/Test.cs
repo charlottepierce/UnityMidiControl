@@ -28,5 +28,9 @@ public class Test : MonoBehaviour {
 		if (UnityMidiControl.Input.InputManager.GetKeyUp(KeyCode.D)) {
 			Debug.Log("'d' up");
 		}
+
+		if (UnityMidiControl.Input.InputManager.GetKey(KeyCode.A)) {
+			Debug.Log("'a' held");
+		}
 	}
 }
