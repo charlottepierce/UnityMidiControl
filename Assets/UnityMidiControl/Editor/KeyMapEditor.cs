@@ -48,7 +48,7 @@ namespace UnityMidiControl.Editor {
 
 				_scrollPos = EditorGUILayout.BeginScrollView(_scrollPos);
 				for (int i = _inputManager.KeyMappings.Mappings.Count - 1; i >= 0; --i) {
-					Mapping m = _inputManager.KeyMappings.Mappings[i];
+					KeyMapping m = _inputManager.KeyMappings.Mappings[i];
 
 					GUILayout.BeginHorizontal();
 					m.trigger = EditorGUILayout.IntField(" Note Number:", m.trigger, GUILayout.MaxWidth(130)); // TODO: validate that this is a valid note number
@@ -61,6 +61,8 @@ namespace UnityMidiControl.Editor {
 				}
 				EditorGUILayout.EndScrollView();
 			}
+
+			// TODO: update for control mappings
 
 			if (GUILayout.Button("New Key Mapping", GUILayout.MaxWidth(369))) {
 				_inputManager.MapKey(-1, "");

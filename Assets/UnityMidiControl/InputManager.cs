@@ -5,6 +5,7 @@ using System.Collections.Generic;
 namespace UnityMidiControl.Input {
 	public sealed class InputManager : MonoBehaviour {
 		public KeyMappings KeyMappings = new KeyMappings();
+		public ControlMappings ControlMappings = new ControlMappings();
 
 		private static InputManager _instance;
 		private void Awake() {
@@ -35,6 +36,7 @@ namespace UnityMidiControl.Input {
 		}
 		
 		public static bool GetKey(string name) {
+			// TODO: update for control mappings
 			if (name == "none") return false;
 
 			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
@@ -58,6 +60,7 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKeyDown(string name) {
+			// TODO: update for control mappings
 			if (name == "none") return false;
 
 			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
@@ -81,6 +84,7 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKeyUp(string name) {
+			// TODO: update for control mappings
 			if (name == "none") return false;
 
 			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
