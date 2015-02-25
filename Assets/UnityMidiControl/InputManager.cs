@@ -119,7 +119,7 @@ namespace UnityMidiControl.Input {
 					}
 				}
 
-				return keyTriggered || controlTriggered || UnityEngine.Input.GetKey(name);
+				return keyTriggered || controlTriggered || UnityEngine.Input.GetKeyDown(name);
 			} else {
 				return UnityEngine.Input.GetKeyDown(name);
 			}
@@ -151,7 +151,7 @@ namespace UnityMidiControl.Input {
 					}
 				}
 				
-				return keyTriggered || controlTriggered || UnityEngine.Input.GetKey(name);
+				return keyTriggered || controlTriggered || UnityEngine.Input.GetKeyUp(name);
 			} else {
 				return UnityEngine.Input.GetKeyUp(name);
 			}
