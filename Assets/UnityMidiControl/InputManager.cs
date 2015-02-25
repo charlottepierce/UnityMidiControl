@@ -34,11 +34,11 @@ namespace UnityMidiControl.Input {
 				bool conditionMet = (controlVal > m.minVal) && (controlVal <= m.maxVal);
 
 				m.keyDown = false;
-				m.keyDown = false;
+				m.keyUp = false;
 				if ((conditionMet) && (!m.conditionMet)) {
-						m.keyDown = true; // first time condition is met - KeyDown event
+					m.keyDown = true; // first time condition is met - KeyDown event
 				} else if ((!conditionMet) && (m.conditionMet)) {
-						m.keyUp = true; // condition was met last update and now isn't - KeyUp event
+					m.keyUp = true; // condition was met last update and now isn't - KeyUp event
 				}
 				m.conditionMet = conditionMet;
 			}
@@ -98,20 +98,28 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKeyDown(string name) {
-			// TODO: update for control mappings
 			if (name == "none") return false;
 
-			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
+			if ((_instance != null) && _instance.MapsKey(name)) {
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
-				bool triggered = false;
+				bool keyTriggered = false;
 				foreach (int t in triggers) {
 					if (MidiInput.GetKeyDown(t)) {
-						triggered = true;
+						keyTriggered = true;
 						break;
 					}
 				}
 
-				return triggered || UnityEngine.Input.GetKeyDown(name);
+				// check if any control mappings are triggered
+				bool controlTriggered = false;
+				foreach (ControlMapping m in _instance.ControlMappings.GetMappings(name)) {
+					if (m.keyDown) {
+						controlTriggered = true;
+						break;
+					}
+				}
+
+				return keyTriggered || controlTriggered || UnityEngine.Input.GetKey(name);
 			} else {
 				return UnityEngine.Input.GetKeyDown(name);
 			}
@@ -122,20 +130,28 @@ namespace UnityMidiControl.Input {
 		}
 
 		public static bool GetKeyUp(string name) {
-			// TODO: update for control mappings
 			if (name == "none") return false;
 
-			if ((_instance != null) && _instance.KeyMappings.MapsKey(name)) {
+			if ((_instance != null) && _instance.MapsKey(name)) {
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
-				bool triggered = false;
+				bool keyTriggered = false;
 				foreach (int t in triggers) {
 					if (MidiInput.GetKeyUp(t)) {
-						triggered = true;
+						keyTriggered = true;
+						break;
+					}
+				}
+
+				// check if any control mappings are triggered
+				bool controlTriggered = false;
+				foreach (ControlMapping m in _instance.ControlMappings.GetMappings(name)) {
+					if (m.keyUp) {
+						controlTriggered = true;
 						break;
 					}
 				}
 				
-				return triggered || UnityEngine.Input.GetKeyUp(name);
+				return keyTriggered || controlTriggered || UnityEngine.Input.GetKey(name);
 			} else {
 				return UnityEngine.Input.GetKeyUp(name);
 			}
