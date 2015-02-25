@@ -32,9 +32,15 @@ namespace UnityMidiControl.Input {
 			foreach (ControlMapping m in ControlMappings.Mappings) {
 				float controlVal = MidiInput.GetKnob(m.control) * 127;
 				bool conditionMet = (controlVal > m.minVal) && (controlVal <= m.maxVal);
-				if (!m.keyDown && !m.keyUp) {
-					m.conditionMet = conditionMet; // if conditionMet is false, nothing happened, if it's true, this is a GetKey event
+
+				m.keyDown = false;
+				m.keyDown = false;
+				if ((conditionMet) && (!m.conditionMet)) {
+						m.keyDown = true; // first time condition is met - KeyDown event
+				} else if ((!conditionMet) && (m.conditionMet)) {
+						m.keyUp = true; // condition was met last update and now isn't - KeyUp event
 				}
+				m.conditionMet = conditionMet;
 			}
 		}
 
