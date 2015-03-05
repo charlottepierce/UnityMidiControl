@@ -14,6 +14,7 @@ UnityMidiControl was tested on Unity version __4.6.2f1__ and is known to cause c
 2. Copy the contents of __Assets__ into the _Assets_ folder of your project
 3. In Unity, click __MIDI Input > Edit Key Mappings__ to open the editor GUI
 4. Add key mappings as desired
+	* mappings can be removed using the '-' buttons
 5. Click __Save Mappings__
 6. In your game code, replace calls to `Input.GetKey`, `Input.GetKeyDown` and `Input.GetKeyUp` with `UnityMidiControl.Input.InputManager.GetKey`, `UnityMidiControl.Input.InputManager.GetKeyDown` and `UnityMidiControl.Input.InputManager.GetKeyUp`, respectively
 7. Before running your project, ensure your MIDI device is connected, and the desktop application __MIDI Bridge__ ([Windows](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-windows.zip); [OSX](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-osx.zip)) is running
@@ -26,7 +27,7 @@ The following note mappings trigger:
 * the 'd' key when note number 50 is played
 * the 'a' key when a control knob on channel 22 has a value between 3 (exclusive) and 75 (inclusive)
 
-![Example key mappings](example_mappings.png)
+![Example key mappings](https://bitbucket.org/charlottepierce/unitymidicontrol/raw/master/screenshot.png)
 
 These keypresses may be detected programmatically using the following code:
 
