@@ -1,15 +1,53 @@
-# Basic Use: #
+Use MIDI instruments as game controllers!
 
-1. Copy the contents of the __Assets__ folder into your own project
-	* alternatively, open the project as-is
-2. Click __MIDI Input > Edit Key Mappings__ to open the editor GUI
-3. Add key mappings as desired
-4. When testing for input, use methods from the class `UnityMidiControl.Input.InputManager` instead of the built-in Unity `Input` class
-5. Before running your project, ensure your MIDI device is connected, and the desktop application _MIDI Bridge_ ([Windows](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-windows.zip); [OSX](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-osx.zip)) is running
+This Unity interface allows you to map MIDI inputs to keyboard buttons - play the mapped input on your instrument to trigger the corresponding key press.
+Any instrument detected by UnityMidiBridge ([Windows](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-windows.zip); [OSX](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-osx.zip)) should work with this interface.
 
-## Test Script: ##
+The interface currently supports `GetKey`, `GetKeyDown` and `GetKeyUp` events for all keyboard buttons.
+Direct button presses (i.e., using the keyboard rather than a mapped instrument) will still be detected.
 
-Prints out messages when _KeyDown_ and _KeyUp_ events are triggered for the 'a', 'b', 'c' and 'd' keys.
-To check if the MIDI input is working correctly, create a new `GameObject` and add the __Test__ script to it as an asset.
-Then, create mappings for any note numbers to the 'a', 'b', 'c' or 'd' keys.
-Run the project and press the note numbers you have mapped on your input device -- this should cause debug messages to print.
+UnityMidiControl was tested on Unity version __4.6.2f1__ and is known to cause crashes on Unity version 4.6.1f1.
+
+## Use: ##
+
+1. Download the __MIDI Bridge__ desktop application ([Windows](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-windows.zip); [OSX](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-osx.zip))
+2. Copy the contents of __Assets__ into the _Assets_ folder of your project
+3. In Unity, click __MIDI Input > Edit Key Mappings__ to open the editor GUI
+4. Add key mappings as desired
+5. Click __Save Mappings__
+6. In your game code, replace calls to `Input.GetKey`, `Input.GetKeyDown` and `Input.GetKeyUp` with `UnityMidiControl.Input.InputManager.GetKey`, `UnityMidiControl.Input.InputManager.GetKeyDown` and `UnityMidiControl.Input.InputManager.GetKeyUp`, respectively
+7. Before running your project, ensure your MIDI device is connected, and the desktop application __MIDI Bridge__ ([Windows](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-windows.zip); [OSX](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-osx.zip)) is running
+
+## Example Use: ##
+
+The following note mappings trigger:
+
+* the 'x' key when note number 36 is played
+* the 'd' key when note number 50 is played
+* the 'a' key when a control knob on channel 22 has a value between 3 (exclusive) and 75 (inclusive)
+
+![Example key mappings](example_mappings.png)
+
+These keypresses may be detected programmatically using the following code:
+
+	if (UnityMidiControl.Input.InputManager.GetKeyDown("x")) {
+		Debug.Log("'x' down");
+	}
+	if (UnityMidiControl.Input.InputManager.GetKeyDown("d")) {
+		Debug.Log("'d' down");
+	}
+	if (UnityMidiControl.Input.InputManager.GetKeyDown("a")) {
+		Debug.Log("'a' down");
+	}
+	
+Using key codes rather than string arguments will also work:
+
+	if (UnityMidiControl.Input.InputManager.GetKeyUp(KeyCode.X)) {
+		Debug.Log("'x' up");
+	}
+	if (UnityMidiControl.Input.InputManager.GetKeyUp(KeyCode.D)) {
+		Debug.Log("'d' up");
+	}
+	if (UnityMidiControl.Input.InputManager.GetKeyUp(KeyCode.A)) {
+		Debug.Log("'a' up");
+	}
