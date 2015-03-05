@@ -27,7 +27,7 @@ The following note mappings trigger:
 * the 'd' key when note number 50 is played
 * the 'a' key when a control knob on channel 22 has a value between 3 (exclusive) and 75 (inclusive)
 
-![Example key mappings](https://bitbucket.org/charlottepierce/unitymidicontrol/raw/master/screenshot.png)
+![Example key mappings](https://bitbucket.org/charlottepierce/unitymidicontrol/raw/master/example_mappings.png)
 
 These keypresses may be detected programmatically using the following code:
 
