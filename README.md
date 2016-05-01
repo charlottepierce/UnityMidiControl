@@ -1,8 +1,6 @@
 Use MIDI instruments as game controllers!
 
 This Unity interface allows you to map MIDI inputs to keyboard buttons - play the mapped input on your instrument to trigger the corresponding key press.
-Any instrument detected by UnityMidiBridge ([Windows](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-windows.zip); [OSX](https://github.com/keijiro/unity-midi-bridge/raw/master/midi-bridge-osx.zip)) should work with this interface.
-
 The interface currently supports `GetKey`, `GetKeyDown` and `GetKeyUp` events for all keyboard buttons.
 Direct button presses (i.e., using the keyboard rather than a mapped instrument) will still be detected.
 
