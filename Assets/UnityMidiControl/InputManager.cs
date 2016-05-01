@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using MidiJack;
 
 namespace UnityMidiControl.Input {
 	public sealed class InputManager : MonoBehaviour {
@@ -30,7 +31,7 @@ namespace UnityMidiControl.Input {
 		public void Update() {
 			// update the state of each control mapping
 			foreach (ControlMapping m in ControlMappings.Mappings) {
-				float controlVal = MidiInput.GetKnob(m.control) * 127;
+				float controlVal = MidiMaster.GetKnob(m.control) * 127;
 				bool conditionMet = (controlVal > m.minVal) && (controlVal <= m.maxVal);
 
 				m.keyDown = false;
@@ -72,7 +73,7 @@ namespace UnityMidiControl.Input {
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
 				bool keyTriggered = false;
 				foreach (int t in triggers) {
-					if (MidiInput.GetKey(t) > 0.0f) {
+					if (MidiMaster.GetKey(t) > 0.0f) {
 						keyTriggered = true;
 						break;
 					}
@@ -104,7 +105,7 @@ namespace UnityMidiControl.Input {
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
 				bool keyTriggered = false;
 				foreach (int t in triggers) {
-					if (MidiInput.GetKeyDown(t)) {
+					if (MidiMaster.GetKeyDown(t)) {
 						keyTriggered = true;
 						break;
 					}
@@ -136,7 +137,7 @@ namespace UnityMidiControl.Input {
 				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
 				bool keyTriggered = false;
 				foreach (int t in triggers) {
-					if (MidiInput.GetKeyUp(t)) {
+					if (MidiMaster.GetKeyUp(t)) {
 						keyTriggered = true;
 						break;
 					}
