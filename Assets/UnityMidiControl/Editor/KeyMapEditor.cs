@@ -8,7 +8,7 @@ namespace UnityMidiControl.Editor {
 		private InputManager _inputManager;
 		private Vector2 _scrollPos = Vector2.zero;
 
-		[MenuItem("MIDI Input/Edit Key Mappings")]
+		[MenuItem("Window/MIDI Key Mappings")]
 		public static void ShowWindow() {
 			EditorWindow win = EditorWindow.GetWindow(typeof(KeyMapEditor)); // show editor window; create it if it doesn't exist
 			win.title = "MIDI Controls";
