@@ -21,8 +21,8 @@ namespace UnityMidiControl.Input {
 			}
 		}
 
-		public void MapControl(int control, int minVal, int maxVal, string key) {
-			Mappings.Insert(0, new ControlMapping(control, minVal, maxVal, key));
+		public void MapControl(int control, int minVal, int maxVal, string key, int channel) {
+			Mappings.Insert(0, new ControlMapping(control, minVal, maxVal, key, channel));
 		}
 
 		public bool MapsKey(string key) {
@@ -49,17 +49,19 @@ namespace UnityMidiControl.Input {
 		public int minVal; // exclusive - value must be greater than this to trigger the key
 		public int maxVal; // inclusive - value must be less than or equal to this to trigger the key
 		public string key; // key activated (e.g., "x")
+		public int channel; // MIDI channel
 
 		// used to determine the exact key event that should be triggered, and then update this next frame
 		public bool conditionMet;
 		public bool keyDown;
 		public bool keyUp;
 		
-		public ControlMapping(int control, int minVal, int maxVal, string key) {
+		public ControlMapping(int control, int minVal, int maxVal, string key, int channel) {
 			this.control = control;
 			this.minVal = minVal;
 			this.maxVal = maxVal;
 			this.key = key;
+			this.channel = channel;
 
 			conditionMet = false;
 			keyDown = false;

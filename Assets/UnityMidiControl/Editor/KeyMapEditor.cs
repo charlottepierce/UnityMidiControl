@@ -76,8 +76,10 @@ namespace UnityMidiControl.Editor {
 					m.minVal = EditorGUILayout.IntField(">", m.minVal, GUILayout.MaxWidth(50));
 					EditorGUIUtility.labelWidth = 50;
 					m.maxVal = EditorGUILayout.IntField("and <=", m.maxVal, GUILayout.MaxWidth(85));
+					EditorGUIUtility.labelWidth = 70;
+					m.channel = EditorGUILayout.IntField("on channel", m.channel, GUILayout.MaxWidth(100));
 					EditorGUIUtility.labelWidth = 50;
-					m.key = EditorGUILayout.TextField("trigger:", m.key, GUILayout.MaxWidth(120)); // TODO: validate that this is a real key
+					m.key = EditorGUILayout.TextField("trigger:", m.key, GUILayout.MaxWidth(110)); // TODO: validate that this is a real key
 					
 					if (GUILayout.Button("-", GUILayout.MaxWidth(25))) {
 						_inputManager.RemoveMapping(m.control, m.minVal, m.maxVal, m.key);
@@ -92,7 +94,7 @@ namespace UnityMidiControl.Editor {
 				_inputManager.MapKey(-1, "", -1);
 			}
 			if (GUILayout.Button("New Control Mapping", GUILayout.MaxWidth(182))) {
-				_inputManager.MapControl(-1, -1, -1, "");
+				_inputManager.MapControl(-1, -1, -1, "", -1);
 			}
 			GUILayout.EndHorizontal();
 

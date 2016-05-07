@@ -53,8 +53,8 @@ namespace UnityMidiControl.Input {
 			KeyMappings.MapKey(trigger, key, channel);
 		}
 
-		public void MapControl(int control, int minVal, int maxVal, string key) {
-			ControlMappings.MapControl(control, minVal, maxVal, key);
+		public void MapControl(int control, int minVal, int maxVal, string key, int channel) {
+			ControlMappings.MapControl(control, minVal, maxVal, key, channel);
 		}
 
 		public void RemoveMapping(int trigger, string key, int channel) {
