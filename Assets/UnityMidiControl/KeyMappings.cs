@@ -11,10 +11,10 @@ namespace UnityMidiControl.Input {
 			Mappings = new List<KeyMapping>();
 		}
 
-		public void RemoveMapping(int trigger, string key) {
+		public void RemoveMapping(int trigger, string key, int channel) {
 			for (int i = Mappings.Count - 1; i >= 0; --i) {
 				KeyMapping m = Mappings[i];
-				if ((m.trigger == trigger) && (m.key == key)) {
+				if ((m.trigger == trigger) && (m.key == key) && (m.channel == channel)) {
 					Mappings.RemoveAt(i);
 					return; // if there are multiple mappings with the same settings, only the first will be removed
 				}

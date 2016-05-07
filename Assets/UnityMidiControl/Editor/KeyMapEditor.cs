@@ -57,7 +57,7 @@ namespace UnityMidiControl.Editor {
 					m.key = EditorGUILayout.TextField("Triggers:", m.key, GUILayout.MaxWidth(130));
 
 					if (GUILayout.Button("-", GUILayout.MaxWidth(25))) {
-						_inputManager.RemoveMapping(m.trigger, m.key);
+						_inputManager.RemoveMapping(m.trigger, m.key, m.channel);
 					}
 					GUILayout.EndHorizontal();
 				}

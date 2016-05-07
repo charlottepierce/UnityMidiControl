@@ -57,8 +57,8 @@ namespace UnityMidiControl.Input {
 			ControlMappings.MapControl(control, minVal, maxVal, key);
 		}
 
-		public void RemoveMapping(int trigger, string key) {
-			KeyMappings.RemoveMapping(trigger, key);
+		public void RemoveMapping(int trigger, string key, int channel) {
+			KeyMappings.RemoveMapping(trigger, key, channel);
 		}
 
 		public void RemoveMapping(int control, int minVal, int maxVal, string key) {
