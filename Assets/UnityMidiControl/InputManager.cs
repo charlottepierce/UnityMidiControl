@@ -31,7 +31,7 @@ namespace UnityMidiControl.Input {
 		public void Update() {
 			// update the state of each control mapping
 			foreach (ControlMapping m in ControlMappings.Mappings) {
-				float controlVal = MidiMaster.GetKnob(m.control) * 127;
+				float controlVal = MidiMaster.GetKnob(Util.GetMidiChannel(m.channel), m.control) * 127;
 				bool conditionMet = (controlVal > m.minVal) && (controlVal <= m.maxVal);
 
 				m.keyDown = false;
