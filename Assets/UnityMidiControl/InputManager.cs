@@ -70,10 +70,9 @@ namespace UnityMidiControl.Input {
 
 			if ((_instance != null) && _instance.MapsKey(name)) {
 				// check if any key mappings are triggered
-				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
 				bool keyTriggered = false;
-				foreach (int t in triggers) {
-					if (MidiMaster.GetKey(t) > 0.0f) {
+				foreach (KeyMapping m in _instance.KeyMappings.GetMappings(name)) {
+					if (MidiMaster.GetKey(Util.GetMidiChannel(m.channel), m.trigger) > 0.0f) {
 						keyTriggered = true;
 						break;
 					}
@@ -102,10 +101,10 @@ namespace UnityMidiControl.Input {
 			if (name == "none") return false;
 
 			if ((_instance != null) && _instance.MapsKey(name)) {
-				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
+				// check if any key mappings are triggered
 				bool keyTriggered = false;
-				foreach (int t in triggers) {
-					if (MidiMaster.GetKeyDown(t)) {
+				foreach (KeyMapping m in _instance.KeyMappings.GetMappings(name)) {
+					if (MidiMaster.GetKeyDown(Util.GetMidiChannel(m.channel), m.trigger)) {
 						keyTriggered = true;
 						break;
 					}
@@ -134,10 +133,10 @@ namespace UnityMidiControl.Input {
 			if (name == "none") return false;
 
 			if ((_instance != null) && _instance.MapsKey(name)) {
-				List<int> triggers = _instance.KeyMappings.GetTriggers(name);
+				// check if any key mappings are triggered
 				bool keyTriggered = false;
-				foreach (int t in triggers) {
-					if (MidiMaster.GetKeyUp(t)) {
+				foreach (KeyMapping m in _instance.KeyMappings.GetMappings(name)) {
+					if (MidiMaster.GetKeyUp(Util.GetMidiChannel(m.channel), m.trigger)) {
 						keyTriggered = true;
 						break;
 					}

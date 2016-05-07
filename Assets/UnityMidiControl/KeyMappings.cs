@@ -33,13 +33,13 @@ namespace UnityMidiControl.Input {
 			return false;
 		}
 
-		public List<int> GetTriggers(string key) {
-			List<int> triggers = new List<int>();
+		public List<KeyMapping> GetMappings(string key) {
+			List<KeyMapping> mappings = new List<KeyMapping>();
 			foreach (KeyMapping m in Mappings) {
-				if (m.key == key) triggers.Add(m.trigger);
+				if (m.key == key) mappings.Add(m);
 			}
-
-			return triggers;
+			
+			return mappings;
 		}
 	}
 
