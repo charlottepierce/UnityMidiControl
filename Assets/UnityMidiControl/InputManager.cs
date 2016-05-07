@@ -49,8 +49,8 @@ namespace UnityMidiControl.Input {
 			return KeyMappings.MapsKey(key) || ControlMappings.MapsKey(key);
 		}
 
-		public void MapKey(int trigger, string key) {
-			KeyMappings.MapKey(trigger, key);
+		public void MapKey(int trigger, string key, int channel) {
+			KeyMappings.MapKey(trigger, key, channel);
 		}
 
 		public void MapControl(int control, int minVal, int maxVal, string key) {

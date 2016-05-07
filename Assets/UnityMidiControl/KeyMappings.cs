@@ -21,8 +21,8 @@ namespace UnityMidiControl.Input {
 			}
 		}
 
-		public void MapKey(int trigger, string key) {
-			Mappings.Insert(0, new KeyMapping(trigger, key));
+		public void MapKey(int trigger, string key, int channel) {
+			Mappings.Insert(0, new KeyMapping(trigger, key, channel));
 		}
 
 		public bool MapsKey(string key) {
@@ -47,10 +47,12 @@ namespace UnityMidiControl.Input {
 	public class KeyMapping {
 		public int trigger; // note number (e.g., 60)
 		public string key; // key activated (e.g., "x")
+		public int channel; // MIDI channel
 		
-		public KeyMapping(int trigger, string key) {
+		public KeyMapping(int trigger, string key, int channel) {
 			this.trigger = trigger;
 			this.key = key;
+			this.channel = channel;
 		}
 	}
 }

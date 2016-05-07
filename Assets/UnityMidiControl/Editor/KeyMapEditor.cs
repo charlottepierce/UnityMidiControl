@@ -49,8 +49,10 @@ namespace UnityMidiControl.Editor {
 					KeyMapping m = _inputManager.KeyMappings.Mappings[i];
 
 					GUILayout.BeginHorizontal();
+					EditorGUIUtility.labelWidth = 80;
+					m.channel = EditorGUILayout.IntField(" On Channel:", m.channel, GUILayout.MaxWidth(130));
 					EditorGUIUtility.labelWidth = 90;
-					m.trigger = EditorGUILayout.IntField(" Note Number:", m.trigger, GUILayout.MaxWidth(130));
+					m.trigger = EditorGUILayout.IntField("Note Number:", m.trigger, GUILayout.MaxWidth(130));
 					EditorGUIUtility.labelWidth = 60;
 					m.key = EditorGUILayout.TextField("Triggers:", m.key, GUILayout.MaxWidth(130));
 
@@ -87,7 +89,7 @@ namespace UnityMidiControl.Editor {
 
 			GUILayout.BeginHorizontal();
 			if (GUILayout.Button("New Key Mapping", GUILayout.MaxWidth(182))) {
-				_inputManager.MapKey(-1, "");
+				_inputManager.MapKey(-1, "", -1);
 			}
 			if (GUILayout.Button("New Control Mapping", GUILayout.MaxWidth(182))) {
 				_inputManager.MapControl(-1, -1, -1, "");
