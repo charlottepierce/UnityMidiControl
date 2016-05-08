@@ -22,9 +22,10 @@ UnityMidiControl was tested on Unity version __4.6.2f1__ and is known to cause c
 
 The following note mappings trigger:
 
-* the 'x' key when note number 36 is played
-* the 'd' key when note number 50 is played
-* the 'a' key when a control knob on channel 22 has a value between 3 (exclusive) and 75 (inclusive)
+* the 'x' key when note number 36 is played on any MIDI channel
+* the 'd' key when note number 50 is played on MIDI channel 8
+* the 'a' key when a control knob on channel 22 has a value between 3 (exclusive) and 75 (inclusive) on any MIDI channel
+* the 'b' key when a control knob on channel 31 has a value between 50 (exclusive) and 100 (inclusive) on MIDI channel 3
 
 ![Example key mappings](https://bitbucket.org/charlottepierce/unitymidicontrol/raw/master/example_mappings.png)
 
