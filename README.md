@@ -40,6 +40,9 @@ These keypresses may be detected programmatically using the following code:
 	if (UnityMidiControl.Input.InputManager.GetKeyDown("a")) {
 		Debug.Log("'a' down");
 	}
+	if (UnityMidiControl.Input.InputManager.GetKeyDown("b")) {
+		Debug.Log("'b' down");
+	}
 	
 Using key codes rather than string arguments will also work:
 
@@ -51,4 +54,7 @@ Using key codes rather than string arguments will also work:
 	}
 	if (UnityMidiControl.Input.InputManager.GetKeyUp(KeyCode.A)) {
 		Debug.Log("'a' up");
+	}
+	if (UnityMidiControl.Input.InputManager.GetKeyDown(Keycode.B)) {
+		Debug.Log("'b' down");
 	}
